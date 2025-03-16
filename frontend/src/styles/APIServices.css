@@ -1,0 +1,86 @@
+/* frontend/src/styles/APIServices.css */
+
+/* Style for the main heading */
+.middleware-api-services h1 {
+    text-align: center; /* Center the heading */
+    color: #333; /* Dark gray color for the heading */
+    margin-bottom: 30px; /* Space below the heading */
+}
+
+/* Style for the form */
+.middleware-api-services form {
+    max-width: 800px; /* Set a maximum width for the form */
+    margin: auto; /* Center the form horizontally */
+    padding: 20px; /* Add padding around the form */
+    border: 1px solid #ccc; /* Light gray border */
+    border-radius: 5px; /* Rounded corners */
+    background-color: #f9f9f9; /* Light background color */
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Stack elements vertically */
+    align-items: flex-start; /* Align items to the left */
+}
+
+/* Style for each form group */
+.middleware-api-services .form-group {
+    margin-bottom: 25px; /* Space between form groups */
+    display: flex; /* Use flexbox for horizontal layout */
+    flex-direction: row; /* Align items in a row */
+    align-items: center; /* Center items vertically */
+}
+
+/* Style for the form header */
+.middleware-api-services .form-header {
+    text-align: center; /* Center the text in the header */
+    margin-bottom: 20px; /* Space below the header */
+}
+
+/* Style for labels */
+.middleware-api-services .form-group label {
+    display: block; /* Block display for labels */
+    margin-right: 15px; /* Space to the right of the label */
+    font-weight: bold; /* Bold labels */
+    width: 250px; /* Set a fixed width for labels */
+}
+
+/* Style for input fields and selects */
+.middleware-api-services .form-group input[type="text"],
+.middleware-api-services .form-group input[type="email"],
+.middleware-api-services .form-group input[type="number"],
+.middleware-api-services .form-group select {
+    width: 100%; /* Full width for inputs */
+    padding: 10px; /* Padding inside input fields */
+    border: 1px solid #ccc; /* Light gray border */
+    border-radius: 4px; /* Rounded corners */
+}
+
+/* Style for file inputs */
+.middleware-api-services .form-group input[type="file"] {
+    margin-top: 5px; /* Space above file inputs */
+}
+
+/* Style for buttons */
+.middleware-api-services button {
+    background-color: #007bff; /* Bootstrap primary color */
+    color: white; /* White text color */
+    padding: 10px 15px; /* Padding for the button */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 14px; /* Slightly smaller font size */
+    margin-top: 20px; /* Space above the button */
+    width: fit-content; /* Button width fits its content */
+    max-width: 150px; /* Set a maximum width for the button */
+    align-self: center; /* Center the button within the form */
+}
+
+/* Button hover effect */
+.middleware-api-services button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Style for success messages */
+.middleware-api-services .success-message {
+    color: green; /* Green color for success messages */
+    text-align: center; /* Center the success message */
+    margin-top: 20px; /* Space above the success message */
+}

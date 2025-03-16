@@ -1,0 +1,173 @@
+/* Login.css */
+body {
+    font-family: Arial, sans-serif; /* Set a default font */
+    background-color: #f4f4f4; /* Light background color */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+}
+
+.login-container {
+    max-width: 400px; /* Set a max width for the container */
+    margin: 100px auto; /* Center the container */
+    padding: 20px; /* Add padding */
+    background-color: white; /* White background for the form */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.login-title {
+    text-align: center; /* Center the title */
+    margin-bottom: 20px; /* Space below the title */
+}
+
+.form-group {
+    margin-bottom: 15px; /* Space between form groups */
+}
+
+label {
+    display: block; /* Make labels block elements */
+    margin-bottom: 5px; /* Space below labels */
+    font-weight: bold; /* Bold labels */
+}
+
+.form-input {
+    width: 100%; /* Full width input */
+    padding: 10px; /* Padding inside input */
+    border: 1px solid #ccc; /* Light border */
+    border-radius: 4px; /* Rounded corners */
+    box-sizing: border-box; /* Include padding in width */
+}
+
+.form-input:focus {
+    border-color: #007bff; /* Change border color on focus */
+    outline: none; /* Remove default outline */
+}
+
+.error {
+    color: red; /* Red color for error messages */
+    margin-bottom: 15px; /* Space below error message */
+}
+
+.login-form .login-button {
+    width: 40%; /* Set the width of the button */
+    padding: 10px; /* Padding inside button */
+    background-color: #007bff; /* Bootstrap primary color */
+    color: white; /* White text */
+    border: none; /* Remove border */
+    border-radius: 4px; /* Rounded corners */
+    font-size: 16px; /* Font size */
+    cursor: pointer; /* Pointer cursor on hover */
+    display: block; /* Change to block to allow margin auto */
+    margin: 0 auto; /* Center the button horizontally */
+    text-align: center; /* Ensure text is centered */
+}
+
+.login-form .login-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Styles for the Signup button on Login page*/
+.signup-button {
+    width: 30%; /* Set the width of the button */
+    padding: 10px; /* Padding inside button */
+    background-color: #28a745; /* Green color for signup */
+    color: white; /* White text */
+    border: none; /* Remove border */
+    border-radius: 4px; /* Rounded corners */
+    font-size: 16px; /* Font size */
+    cursor: pointer; /* Pointer cursor on hover */
+    display: inline-block; /* Change to inline-block for alignment */
+    margin-top: 10px; /* Space above the button */
+    text-align: center; /* Ensure text is centered */
+}
+
+.signup-button:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+/* Signup.css */
+body {
+    font-family: Arial, sans-serif; /* Set a default font */
+    background-color: #f4f4f4; /* Light background color */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+}
+
+.signup-container {
+    max-width: 400px; /* Set a max width for the container */
+    margin: 100px auto; /* Center the container */
+    padding: 20px; /* Add padding */
+    background-color: white; /* White background for the form */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.signup-title {
+    text-align: center; /* Center the title */
+    margin-bottom: 20px; /* Space below the title */
+}
+
+.form-group {
+    margin-bottom: 15px; /* Space between form groups */
+}
+
+label {
+    display: block; /* Make labels block elements */
+    margin-bottom: 5px; /* Space below labels */
+    font-weight: bold; /* Bold labels */
+}
+
+.form-input {
+    width: 100%; /* Full width input */
+    padding: 10px; /* Padding inside input */
+    border: 1px solid #ccc; /* Light border */
+    border-radius: 4px; /* Rounded corners */
+    box-sizing: border-box; /* Include padding in width */
+}
+
+.form-input:focus {
+    border-color: #007bff; /* Change border color on focus */
+    outline: none; /* Remove default outline */
+}
+
+.error {
+    color: red; /* Red color for error messages */
+    margin-bottom: 15px; /* Space below error message */
+}
+
+.success {
+    color: green; /* Green color for success messages */
+    margin-bottom: 15px; /* Space below success message */
+}
+
+.signup-form .signup-button {
+    width: 40%; /* Full width button */
+    padding: 10px; /* Padding inside button */
+    background-color: #28a745; /* Green color for signup */
+    color: white; /* White text */
+    border: none; /* Remove border */
+    border-radius: 4px; /* Rounded corners */
+    font-size: 16px; /* Font size */
+    cursor: pointer; /* Pointer cursor on hover */   
+    display: block; /* Change to block to allow margin auto */
+    margin: 0 auto; /* Center the button horizontally */
+    text-align: center; /* Ensure text is centered */
+}
+
+.signup-form .signup-button:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+.signup-option {
+    text-align: center; /* Center the signup option text */
+    margin-top: 15px; /* Space above the signup option */
+}
+
+.signup-option a {
+    color: #007bff; /* Link color */
+    text-decoration: none; /* Remove underline */
+}
+
+.signup-option a:hover {
+    text-decoration: underline; /* Underline on hover */
+}

@@ -1,0 +1,32 @@
+/* Header.css */
+.navbar {
+    padding: 10px 20px; /* Add padding to the navbar */
+}
+
+.navbar-nav {
+    display: flex; /* Use flexbox for alignment */
+}
+
+/*.navbar-nav .nav-item {
+    margin-right: 15px; /* Add space between items */
+/*}*/
+
+/*.navbar-nav .nav-item:last-child {
+    margin-right: 0; /* Remove margin from the last item */
+/*}*/
+
+.navbar-nav .nav-item .nav-link {
+    padding: 5px 10px; /* Reduce padding for smaller height */
+}
+
+
+.login-button {
+    margin-left: 10px; /* Add some space between the last nav item and the button */    
+    font-size: 16px; /* Increase font size */
+    min-width: 100px; /* Set a minimum width for the button */
+    min-height: 50px;
+    display: inline-flex; /* Use flexbox for centering */
+    justify-content: center; /* Center text horizontally */
+    align-items: center; /* Center text vertically */
+    text-align: center; /* Ensure text is centered */
+}
