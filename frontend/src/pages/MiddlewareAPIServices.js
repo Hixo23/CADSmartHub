@@ -21,6 +21,19 @@ const MiddlewareAPIServices = () => {
         layerDescription: '',
     });
 
+    const [isDisabled, setIsDisabled] = useState(true);
+    const [message, setMessage] = useState('');
+
+    // Function to enable the Download button
+    const enableDownloadButton = () => {
+        setIsDisabled(false);
+        setMessage('File uploaded successfully! You can now download it.');
+    };
+    const disableDownloadButton = () => {
+        setIsDisabled(true);
+        setMessage('');
+    };
+    
     const handleFileChange = (e) => {
         setFile(e.target.files[0]);
     };
@@ -36,26 +49,37 @@ const MiddlewareAPIServices = () => {
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault();          
-        
-        try {            
-            //const response = await axios.post('http://localhost:5000/api/invoke-services', requestData);
-         
-            //const response = await axios.post('http://localhost:5000/api/invoke-services', { selectedServiceType, selectedService, file });
-            const formData = new FormData();
-            formData.append('type', selectedServiceType);
-            formData.append('apiName', selectedService);
-            formData.append('file', file);
+        e.preventDefault();
+    
+        const formData = new FormData();
+        formData.append('type', selectedServiceType);
+        formData.append('apiName', selectedService);
+        formData.append('file', file);
+    
+        console.log('selectedServiceType : ', selectedServiceType);
+        console.log('selectedService name : ', selectedService);
+        console.log('file', file);
+    
+        // Launch CAD in the background
+       
 
-            console.log('selectedServiceType : ', selectedServiceType);  
-            console.log('selectedService name : ', selectedService);
-            console.log('file', file);   
-
+        try {
+                const response = await axios.post('http://localhost:5000/api/launch-cad');            
+                console.log('Response from middleware:', response.data);
+                enableDownloadButton();
+            } catch (error) {
+                // Enhanced error loading            
+                console.error('Error message:', error.message);
+                setMessage('Error uploading file. Please try again.');                 
+            }    
+    
+        try {
             const response = await axios.post('http://localhost:5000/api/invoke-services', formData, {
                 headers: { 'Content-Type': 'multipart/form-data' },
             });
-            console.log('Response from middleware:', response.data);
+            console.log('Response from middleware (invoke-services):', response.data);
             // Handle the response as needed
+            enableDownloadButton();
         } catch (error) {
             // Enhanced error logging
             console.error('Error submitting data:', error); // Log the entire error object
@@ -67,9 +91,31 @@ const MiddlewareAPIServices = () => {
             } else {
                 console.error('Error message:', error.message);
             }
+            setMessage('Error invoke-services. Please try again.'); 
         }
     };
     
+    const handleDownload = () => {
+       
+        //File present in path = ../../../backend/downloads
+        //Full path = "../../../backend/downloads + file.filename_without_extention + .DWG";
+        // Provide the code to download or copy file from here to your download folder or through URL
+        // Get the filename without extension
+        const filenameWithoutExtension = file.name.split('.').slice(0, -1).join('.'); // Get the name without extension
+        const filename = `${filenameWithoutExtension}.DWG`; // Construct the DWG filename
+
+        if (!filename) {
+            console.error('No file available for download.');
+            return;
+        }
+
+        // Construct the download URL
+        const downloadUrl = `http://localhost:5000/downloads/${filename}`; // Adjust the URL as necessary
+
+        // Open the download URL in a new tab
+        window.open(downloadUrl, '_blank');
+        disableDownloadButton();
+    };
     
     return (
         <div className="middleware-api-services"> {/* Added class here */}
@@ -186,14 +232,7 @@ const MiddlewareAPIServices = () => {
                         </div>
                     </div>
                 )}
-
-                {/* {['pdfToDWG', 'svgToDWG', 'dgnToDWG', 'CATDrawingToDWG', 'stepToDWG', 'generateGcode', 'extractBOM', 'drawCompare', 'batchPrint', 'batchExport'].includes(selectedService) && (
-                    <div className="form-group">
-                        <label>Upload File:</label>
-                        <input type="file" onChange={handleFileChange} required />
-                    </div>
-                )} */}
-
+               
                 {['pdfToDWG', 'svgToDWG', 'dgnToDWG', 'CATDrawingToDWG', 'stepToDWG', 'generateGcode', 'extractBOM', 'drawCompare', 'batchPrint', 'batchExport'].includes(selectedService) && (
                     <div className="form-group">
                         <label>Upload File:</label>
@@ -218,7 +257,12 @@ const MiddlewareAPIServices = () => {
                     </div>
                 )}
 
-                <button type="submit">Submit</button>
+                <div style={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
+                    <button type="submit" onClick={handleSubmit}>Upload</button>
+                    <button type="button" disabled={isDisabled} onClick={handleDownload}>Download</button>                    
+                </div>
+                {/* Message display */}
+                {message && <p style={{ textAlign: 'center', marginTop: '10px', color: isDisabled ? 'red' : 'green' }}>{message}</p>}
             </form>
         </div>
     );

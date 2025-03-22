@@ -56,8 +56,7 @@ function App() {
                     <Route path="/plugins/:type" element={<PluginsPage />} />
                     <Route path="/plugins/:_id" element={<ProductDetail />} />
                     <Route path="/products/:name" element={<ProductDetail />} />
-                    <Route path="/checkout/:name" element={<Checkout />} />
-                    <Route path="/launch-cad" element={<launch-cad />} />
+                    <Route path="/checkout/:name" element={<Checkout />} />                    
                     <Route path="/middlewareAPIServices" element={<MiddlewareAPIServices />} />/                    
                     <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
                     <Route path="/signup" element={<Signup />} />

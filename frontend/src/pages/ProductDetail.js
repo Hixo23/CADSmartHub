@@ -68,7 +68,7 @@ const ProductDetail = () => {
             <p>Type: {product.type}</p>
             <p>Description: {product.description}</p>            
             <p>Price: ${product.price}</p>
-            <p>Monthly Subscription: ${product.monthly_subscription}</p>
+            <p>Monthly Subscription: {product.monthly_subscription}</p>
             <p>URL: <a href={product.url} target="_blank" rel="noopener noreferrer">{product.url}</a></p>
             <p>Max Files Allowed: {product.max_files}</p>
 

@@ -70,12 +70,18 @@
     margin-top: 20px; /* Space above the button */
     width: fit-content; /* Button width fits its content */
     max-width: 150px; /* Set a maximum width for the button */
-    align-self: center; /* Center the button within the form */
+    /*align-self: center; /* Center the button within the form */
 }
 
 /* Button hover effect */
 .middleware-api-services button:hover {
     background-color: #0056b3; /* Darker blue on hover */
+}
+/* Style for disabled buttons */
+.middleware-api-services button:disabled {
+    background-color: #d3d3d3; /* Light gray background */
+    color: #a9a9a9; /* Dark gray text */
+    cursor: not-allowed; /* Not-allowed cursor */
 }
 
 /* Style for success messages */
