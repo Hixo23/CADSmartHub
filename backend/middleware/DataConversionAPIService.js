@@ -2,6 +2,7 @@
 const axios = require('axios');
 const { exec } = require('child_process');
 const path = require('path');
+const { runBatchAWS } = require('./s3Handler');
 // Import your C++ addon if needed
 // const addon = require('./build/Release/myaddon'); // Adjust the path to your compiled addon
 
@@ -134,7 +135,8 @@ async function convertPDFToDWG(data) {
     const batchFilePath = path.join(__dirname, '../Data/Scripts/PDF_To_DWG/run_draftsight_script.bat');   
    // Run batch file and await the result
    try {
-        const result = await runBatch(batchFilePath, data);
+        //const result = await runBatch(batchFilePath, data);
+        const result = await runBatchAWS(batchFilePath,data);
         return result; // Return the result of the conversion
     } catch (error) {
         console.error('Error in convertPDFToDWG:', error);

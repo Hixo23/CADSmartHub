@@ -27,7 +27,7 @@ const MiddlewareAPIServices = () => {
     // Function to enable the Download button
     const enableDownloadButton = () => {
         setIsDisabled(false);
-        setMessage('File uploaded successfully! You can now download it.');
+        setMessage('File uploaded successfully! You can now download it soon...');
     };
     const disableDownloadButton = () => {
         setIsDisabled(true);
@@ -66,7 +66,9 @@ const MiddlewareAPIServices = () => {
         try {
                 const response = await axios.post('http://localhost:5000/api/launch-cad');            
                 console.log('Response from middleware:', response.data);
-                enableDownloadButton();
+                if (response.status >= 200 && response.status < 300) {
+                    enableDownloadButton();
+                }
             } catch (error) {
                 // Enhanced error loading            
                 console.error('Error message:', error.message);
@@ -78,8 +80,11 @@ const MiddlewareAPIServices = () => {
                 headers: { 'Content-Type': 'multipart/form-data' },
             });
             console.log('Response from middleware (invoke-services):', response.data);
+            if(response)
             // Handle the response as needed
-            enableDownloadButton();
+            if (response.status >= 200 && response.status < 300) {
+                enableDownloadButton();
+            }
         } catch (error) {
             // Enhanced error logging
             console.error('Error submitting data:', error); // Log the entire error object

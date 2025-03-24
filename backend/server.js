@@ -16,11 +16,11 @@ app.use(express.json());
 // Define your routes here
 const apiRoutes = require('./routes/api');
 const authRoutes = require('./routes/authRoutes'); 
-//const taskRoutes = require('./routes/taskRoutes');
 const checkoutRoutes = require('./routes/checkoutRoutes');
 const cadRoutes = require('./routes/cadRoutes');
 const cadApiMiddleware = require('./middleware/cadApiMiddleware');
-const conversionRoutes = require('./routes/conversionRoutes');
+const awsRoutes = require('./routes/awsRoutes');
+//const conversionRoutes = require('./routes/conversionRoutes');
 //const Product = require('./models/Product'); 
 
 app.use('/api', apiRoutes);
@@ -30,7 +30,8 @@ app.use('/api/checkout', checkoutRoutes);
 app.use('/api', cadRoutes);
 app.use('/api', cadApiMiddleware);
 app.use('/downloads', express.static(path.join(__dirname, 'downloads'))); // Serve static files from downloads
-app.use(conversionRoutes); // Use the conversion routes
+app.use('/api/aws', awsRoutes); // AWS file upload / download
+//app.use(conversionRoutes); // Use the conversion routes
 
 
 const PORT = process.env.PORT || 5000;

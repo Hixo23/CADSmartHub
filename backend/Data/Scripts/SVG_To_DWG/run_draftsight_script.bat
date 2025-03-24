@@ -34,4 +34,5 @@ cscript //nologo "%~dp0import_svg.vbs" "%INPUT_SVG%" "%OUTPUT_DWG%"
 :: cscript //nologo "D:\Data\Scripts\PDF_To_DWG\import_pdf.vbs"
 
 :: echo DraftSight automation executed successfully!
+::exit /b
 pause

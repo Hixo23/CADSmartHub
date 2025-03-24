@@ -34,4 +34,5 @@ cscript //nologo "%~dp0import_step.vbs" "%INPUT_STEP%" "%OUTPUT_DWG%"
 :: cscript //nologo "D:\Data\Scripts\PDF_To_DWG\import_pdf.vbs"
 
 :: echo DraftSight automation executed successfully!
-pause
+::exit /b
+pasue

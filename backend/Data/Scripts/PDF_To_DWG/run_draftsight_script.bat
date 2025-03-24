@@ -28,10 +28,11 @@ start /min "" "C:\Program Files\AutoHotkey\v2\AutoHotkey.exe" "%~dp0focus_drafts
 timeout /t 2 >nul
 
 :: Run the VBScript to execute commands in DraftSight with the input PDF and output DWG paths
-cscript //nologo "%~dp0import_catdrawing.vbs" "%INPUT_PDF%" "%OUTPUT_DWG%"
+cscript //nologo "%~dp0import_pdf.vbs" "%INPUT_PDF%" "%OUTPUT_DWG%"
 
 :: Run the VBScript to execute commands in DraftSight
 :: cscript //nologo "D:\Data\Scripts\PDF_To_DWG\import_pdf.vbs"
 
 :: echo DraftSight automation executed successfully!
-pause
+exit /b
+
