@@ -1,3 +1,4 @@
+// backend/routes/api.js
 const express = require('express');
 const mongoose = require('mongoose');
 const Product = require('../models/Product'); // Import the Product model
@@ -73,5 +74,21 @@ router.get('/products/:name', async (req, res) => {
     }
 });
 
+router.get('/api-listing', async (req, res) => {
+    try {
+        const apis = await ApiModel.find();
+        const plugins = await PluginsModel.find();
 
+        // Combine the data as needed
+        const response = {
+            apis,
+            plugins,
+        };
+
+        res.status(200).json(response);
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
 module.exports = router;
