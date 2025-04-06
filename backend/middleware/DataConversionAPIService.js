@@ -1,8 +1,8 @@
-// backend/middleware/DataConversionAPIService.js
+// middleware/DataConversionAPIService.js
 const axios = require('axios');
 const { exec } = require('child_process');
 const path = require('path');
-const { runBatchAWS } = require('./s3Handler');
+const s3Handler = require('./s3Handler');
 // Import your C++ addon if needed
 // const addon = require('./build/Release/myaddon'); // Adjust the path to your compiled addon
 
@@ -89,29 +89,29 @@ module.exports = {
 };
 
 // Example conversion functions (replace these with actual implementations)
-// Path to the batch file
+// Path to the batch fil
 
 async function runBatch(batchFilePath,data)
 {
      // Construct the uploads and downloads directory paths relative to the current working directory
-    const uploadsDir = path.join(__dirname, '../uploads'); // Path to uploads directory
-    const downloadsDir = path.join(__dirname, '../downloads'); // Path to downloads directory
+    const uploadsDir = path.join(__dirname, '../Data/uploads'); // Path to uploads directory
+    const downloadsDir = path.join(__dirname, '../Data/downloads'); // Path to downloads directory
 
     // Construct input and output file paths
     const inputFilePath = path.join(uploadsDir, data.filename); // Path to the input PDF file
-    
+    //console.log('inputFilePath :', inputFilePath);
     // Get the filename without extension
     const extension = path.extname(data.filename);
     const filenameWithoutExtension = path.basename(data.filename, extension); 
     // Construct output file path
     const outputFilePath = path.join(downloadsDir, `${filenameWithoutExtension}.DWG`); // Path to the output DWG file
 
-    console.log('outputFilePath :', outputFilePath);
+    //console.log('outputFilePath :', outputFilePath);
 
     // Construct the command to execute the batch file with arguments
     const command = `"${batchFilePath}" "${inputFilePath}" "${outputFilePath}"`;
 
-    //console.log('command:', outputFilePath);
+    console.log('command:', command);
 
     return new Promise((resolve, reject) => {
         exec(command, (error, stdout, stderr) => {
@@ -132,64 +132,141 @@ async function runBatch(batchFilePath,data)
 
 async function convertPDFToDWG(data) {
     
-    const batchFilePath = path.join(__dirname, '../Data/Scripts/PDF_To_DWG/run_draftsight_script.bat');   
+    const batchFilePath = path.join(__dirname, '../Data/Scripts/PDF_To_DWG/run_draftsight_script.bat');
+    let result;   
    // Run batch file and await the result
    try {
-        //const result = await runBatch(batchFilePath, data);
-        const result = await runBatchAWS(batchFilePath,data);
-        return result; // Return the result of the conversion
+        
+        result = await runBatch(batchFilePath, data);    
+
+        //const result = await runBatchAWS(batchFilePath,data);
+        //return result; // Return the result of the conversion
     } catch (error) {
         console.error('Error in convertPDFToDWG:', error);
         throw error; // Rethrow the error for handling in the calling function
     }
+
+    try {
+        
+        await s3Handler.uploadFiletoS3Upload(data);
+        await s3Handler.uploadFiletoS3Download(data); 
+
+        //const result = await runBatchAWS(batchFilePath,data);
+        // Return the result of the conversion
+    } catch (error) {
+        console.error('Error in uploading files to AWS', error);
+        throw error; // Rethrow the error for handling in the calling function
+    }
+
+    return result;
 }
 
 async function convertSVGToDWG(data) {    
-    const batchFilePath = path.join(__dirname, '../Data/Scripts/SVG_To_DWG/run_draftsight_script.bat');  
+    const batchFilePath = path.join(__dirname, '../Data/Scripts/SVG_To_DWG/run_draftsight_script.bat'); 
+    let result; 
     try {
         const result = await runBatch(batchFilePath, data);
-        return result; // Return the result of the conversion
+        //return result; // Return the result of the conversion
     } catch (error) {
         console.error('Error in convertSVGToDWG:', error);
         throw error; // Rethrow the error for handling in the calling function
     }
+
+    try {
+        
+        await s3Handler.uploadFiletoS3Upload(data);
+        await s3Handler.uploadFiletoS3Download(data); 
+
+        //const result = await runBatchAWS(batchFilePath,data);
+        // Return the result of the conversion
+    } catch (error) {
+        console.error('Error in uploading files to AWS', error);
+        throw error; // Rethrow the error for handling in the calling function
+    }
+
+    return result;
     
 }
 
 async function convertDGNToDWG(data) {
    
     const batchFilePath = path.join(__dirname, '../Data/Scripts/DGN_TO_DWG/run_draftsight_script.bat');  
+    let result; 
     try {
         const result = await runBatch(batchFilePath, data);
-        return result; // Return the result of the conversion
+        //return result; // Return the result of the conversion
     } catch (error) {
-        console.error('Error in convertDGNToDWG:', error);
+        console.error('Error in convertSVGToDWG:', error);
         throw error; // Rethrow the error for handling in the calling function
     }
+
+    try {
+        
+        await s3Handler.uploadFiletoS3Upload(data);
+        await s3Handler.uploadFiletoS3Download(data); 
+
+        //const result = await runBatchAWS(batchFilePath,data);
+        // Return the result of the conversion
+    } catch (error) {
+        console.error('Error in uploading files to AWS', error);
+        throw error; // Rethrow the error for handling in the calling function
+    }
+
+    return result;
 }
 
 async function convertCATDrawingToDWG(data) {
     
     const batchFilePath = path.join(__dirname, '../Data/Scripts/CATDrawing_To_DWG/run_draftsight_script.bat');
     // run batch file
+    let result; 
     try {
         const result = await runBatch(batchFilePath, data);
-        return result; // Return the result of the conversion
+        //return result; // Return the result of the conversion
     } catch (error) {
-        console.error('Error in convertCATDrawingToDWG:', error);
+        console.error('Error in convertSVGToDWG:', error);
         throw error; // Rethrow the error for handling in the calling function
     }
+
+    try {
+        
+        await s3Handler.uploadFiletoS3Upload(data);
+        await s3Handler.uploadFiletoS3Download(data); 
+
+        //const result = await runBatchAWS(batchFilePath,data);
+        // Return the result of the conversion
+    } catch (error) {
+        console.error('Error in uploading files to AWS', error);
+        throw error; // Rethrow the error for handling in the calling function
+    }
+
+    return result;
 }
 
 async function convertStepToDWG(data) {
     
     const batchFilePath = path.join(__dirname, '../Data/Scripts/STEP_To_DWG/run_draftsight_script.bat'); 
     // run batch file   
+    let result; 
     try {
         const result = await runBatch(batchFilePath, data);
-        return result; // Return the result of the conversion
+        //return result; // Return the result of the conversion
     } catch (error) {
-        console.error('Error in convertStepToDWG:', error);
+        console.error('Error in convertSVGToDWG:', error);
         throw error; // Rethrow the error for handling in the calling function
     }
+
+    try {
+        
+        await s3Handler.uploadFiletoS3Upload(data);
+        await s3Handler.uploadFiletoS3Download(data); 
+
+        //const result = await runBatchAWS(batchFilePath,data);
+        // Return the result of the conversion
+    } catch (error) {
+        console.error('Error in uploading files to AWS', error);
+        throw error; // Rethrow the error for handling in the calling function
+    }
+
+    return result;
 }

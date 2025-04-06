@@ -25,7 +25,7 @@ set OUTPUT_DWG=%2
 start /min "" "C:\Program Files\AutoHotkey\v2\AutoHotkey.exe" "%~dp0focus_draftsight.ahk"
 
 :: Wait for AutoHotkey to bring DraftSight into focus
-timeout /t 2 >nul
+::timeout /t 2 >nul
 
 :: Run the VBScript to execute commands in DraftSight with the input PDF and output DWG paths
 cscript //nologo "%~dp0import_svg.vbs" "%INPUT_SVG%" "%OUTPUT_DWG%"
@@ -34,5 +34,5 @@ cscript //nologo "%~dp0import_svg.vbs" "%INPUT_SVG%" "%OUTPUT_DWG%"
 :: cscript //nologo "D:\Data\Scripts\PDF_To_DWG\import_pdf.vbs"
 
 :: echo DraftSight automation executed successfully!
-::exit /b
-pause
+exit /b 0
+

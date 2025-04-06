@@ -4,7 +4,7 @@ const AWS = require('aws-sdk');
 const fs = require('fs');
 
 const router = express.Router();
-const upload = multer({ dest: 'uploads/' }); // Temporary storage for uploaded files
+const upload = multer({ dest: '../Data/uploads/' }); // Temporary storage for uploaded files
 
 // Configure AWS SDK
 const s3 = new AWS.S3({

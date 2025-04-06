@@ -1,6 +1,6 @@
 SetTitleMatchMode(2)  ; Allow partial title matching
 
-maxAttempts := 10  ; Maximum number of attempts to find DraftSight
+maxAttempts := 30  ; Maximum number of attempts to find DraftSight
 attempts := 0
 
 ; Loop until DraftSight is found and brought to the foreground
@@ -29,6 +29,11 @@ Loop {
         if WinExist("ahk_exe hh.exe") {
             WinClose("ahk_exe hh.exe")
         }
+		
+		; Close the HELP window (hh.exe) if it exists
+		if WinExist("ahk_exe hh.exe") {
+			WinClose("ahk_exe hh.exe")
+		}
         
         break  ; Exit the loop once DraftSight is focused
     }

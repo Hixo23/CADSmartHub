@@ -1,4 +1,4 @@
-// // backend/middleware/cadApiMiddleware.js
+// middleware/cadApiMiddleware.js
 const express = require('express');
 const router = express.Router();
 const dataConversionAPI = require('./DataConversionAPIService'); // Import the DataConversionAPIService
@@ -7,10 +7,13 @@ const automationAPI = require('./AutomationAPIService'); // Import the Automatio
 const multer = require('multer');
 const path = require('path');
 
+// Import Swagger documentation
+//require('../swaggerDocs/invokeServices'); // Import the Swagger documentation for this endpoint
+
 // Configure multer to store files with their original names
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'uploads/'); // Directory to store uploaded files
+        cb(null, path.join(__dirname, '../Data/uploads/')); // Directory to store uploaded files
     },
     filename: (req, file, cb) => {
         cb(null, file.originalname); // Use the original filename

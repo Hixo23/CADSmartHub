@@ -1,4 +1,6 @@
 @echo off
+cd /d "%~dp0"
+
 :: Check if DraftSight is running
 tasklist /FI "IMAGENAME eq DraftSight.exe" | find /I "DraftSight.exe" >nul
 if %ERRORLEVEL% NEQ 0 (
@@ -21,18 +23,35 @@ if %ERRORLEVEL% NEQ 0 (
 set INPUT_PDF=%1
 set OUTPUT_DWG=%2
 
+:: Check if input and output paths are provided
+if "%INPUT_PDF%"=="" (
+    echo Error: No input PDF file provided.
+    exit /b 1
+)
+
+if "%OUTPUT_DWG%"=="" (
+    echo Error: No output DWG file path provided.
+    exit /b 1
+)
+
 :: Bring DraftSight to the foreground using AutoHotkey v2
 start /min "" "C:\Program Files\AutoHotkey\v2\AutoHotkey.exe" "%~dp0focus_draftsight.ahk"
 
 :: Wait for AutoHotkey to bring DraftSight into focus
-timeout /t 2 >nul
+::timeout /t 2 >nul
 
 :: Run the VBScript to execute commands in DraftSight with the input PDF and output DWG paths
 cscript //nologo "%~dp0import_pdf.vbs" "%INPUT_PDF%" "%OUTPUT_DWG%"
 
-:: Run the VBScript to execute commands in DraftSight
-:: cscript //nologo "D:\Data\Scripts\PDF_To_DWG\import_pdf.vbs"
+if %ERRORLEVEL% NEQ 0 (
+    echo Error: Failed to run the VBScript for PDF import.
+    exit /b %ERRORLEVEL%
+)
 
-:: echo DraftSight automation executed successfully!
-exit /b
+:: Wait for a brief moment to ensure the process completes
+::timeout /t 5 >nul 
 
+echo DraftSight automation executed successfully!
+
+:: Exit the batch file
+exit /b 0

@@ -89,51 +89,57 @@ async function executeCommand(command) {
     });
 }
 
-async function runBatchAWS(batchFilePath, data) {
-    // Define your S3 bucket names
+async function uploadFiletoS3Upload(data){
     const uploadsBucket = process.env.CADSMARTHUB_FILE_UPLOADS; // Your uploads bucket name
-    const downloadsBucket = process.env.CADSMARTHUB_FILE_DOWNLOAD; // Your downloads bucket name
-
-    const uploadsDir = path.join(__dirname, '../uploads'); // Path to uploads directory
-    const downloadsDir = path.join(__dirname, '../downloads'); // Path to downloads directory
+   
+    const uploadsDir = path.join(__dirname, '../Data/uploads'); // Path to uploads directory
+   
     // Construct input and output file paths
     const inputFilePath = path.join(uploadsDir, data.filename); // Path to the input PDF file
         
+    console.log('inputFilePath :', inputFilePath);
+    try {
+
+        await uploadFiletoS3(uploadsBucket,data.filename,inputFilePath);
+        console.log(`File downloaded successfully to S3 upload:`, inputFilePath);
+    }
+    catch (error) {
+        console.error('Error in uploading file to S3 bucket:', error); // Log the actual error
+        throw error; // Rethrow the error for handling in the calling function
+    }
+
+}
+
+async function uploadFiletoS3Download(data){
+    
+    const downloadsBucket = process.env.CADSMARTHUB_FILE_DOWNLOAD; // Your downloads bucket name
+   
+    const downloadsDir = path.join(__dirname, '../Data/downloads'); // Path to downloads directory
+           
     // Get the filename without extension
     const extension = path.extname(data.filename);
     const fileKey = path.basename(data.filename, extension); 
     // Construct output file path
-    const outputFilePath = path.join(downloadsDir, `${fileKey}.DWG`); // Path to the output DWG file
-    
+    const outputFilePath = path.join(downloadsDir, `${fileKey}.DWG`); // Path to the output DWG file    
+
     console.log('outputFilePath :', outputFilePath);
     try {
 
-        await uploadFiletoS3(uploadsBucket,data.filename,inputFilePath);
-    }
-    catch{
-
-        console.error('Error in uploading file to s3 bucket file :', downloadError);
-    }
-
-    //const command = `"${batchFilePath}" "${localFilePath}" "s3://${downloadsBucket}/${outputFileKey}"`;
-    const command = `"${batchFilePath}" "${inputFilePath}" "${outputFilePath}"`;
-
-    console.log('Command to translate:',command);
-
-    try {
-        const stdout = await executeCommand(command);
-        console.log(`Batch file output: ${stdout}`); 
         await uploadFiletoS3(downloadsBucket,`${fileKey}.DWG`,outputFilePath);
-        await downloadFilefromS3(downloadsBucket,`${fileKey}.DWG`,outputFilePath);
-
-        // Write the downloaded file to local disk       
-        
-        return { message: 'Conversion completed successfully', output: stdout };
-    } catch (downloadError) {
-        console.error('Error downloading output file :', downloadError);
-        throw downloadError; // Handle the error as needed
-    }    
-   
+        console.log(`File upload to S3 Download: ${outputFilePath}`);
+    }
+    catch (error) {
+        console.error('Error in uploading file to S3 bucket:', error); // Log the actual error
+        throw error; // Rethrow the error for handling in the calling function
+    }
 }
 
-module.exports = { runBatchAWS };
+// Define an object to export
+const s3Handler = {
+    uploadFiletoS3,
+    downloadFilefromS3,
+    uploadFiletoS3Upload,
+    uploadFiletoS3Download,
+};
+
+module.exports = s3Handler;

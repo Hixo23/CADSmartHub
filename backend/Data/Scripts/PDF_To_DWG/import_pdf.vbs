@@ -34,7 +34,7 @@ End If
 ' Activate DraftSight window
 WshShell.AppActivate DraftSightPID
 WScript.Sleep 500
-' BringDraftSightToFront()
+BringDraftSightToFront()
 WScript.Sleep 2000
 
 ' Send IMPORTPDF command
@@ -44,12 +44,14 @@ WScript.Sleep 1000
 'WScript.Sleep 500
 WshShell.AppActivate DraftSightPID
 WshShell.SendKeys "NEW"
+WScript.Sleep 500
 WshShell.SendKeys "{ENTER}"
 WScript.Sleep 1000
 WshShell.SendKeys "."
 WshShell.SendKeys "{ENTER}"
 WScript.Sleep 500
 WshShell.SendKeys "IMPORTPDF"
+WScript.Sleep 500
 WshShell.SendKeys "{ENTER}"
 WScript.Sleep 1000
 

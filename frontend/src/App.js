@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import SwaggerDocs from './components/SwaggerDocs';
 import ApiListing from './pages/ApiListing';
 import ApiDetail from './pages/ApiDetail';
 import FeaturesSection from './components/FeaturesSection';
@@ -63,7 +64,8 @@ function App() {
                     <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
                     <Route path="/signup" element={<Signup />} />
                     <Route path="/about" element={<About />} />
-                     <Route path="/contact" element={<Contact />} />
+                    <Route path="/contact" element={<Contact />} />
+                    <Route path="/api-docs" element={<SwaggerDocs />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             )}

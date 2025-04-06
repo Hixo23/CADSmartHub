@@ -1,4 +1,4 @@
-// backend/middleware/AutomationAPIService.js
+// middleware/AutomationAPIService.js
 const axios = require('axios');
 // Import your C++ addon if needed
 // const addon = require('./build/Release/myaddon'); // Adjust the path to your compiled addon
