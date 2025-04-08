@@ -7,8 +7,7 @@ const automationAPI = require('./AutomationAPIService'); // Import the Automatio
 const multer = require('multer');
 const path = require('path');
 
-// Import Swagger documentation
-//require('../swaggerDocs/invokeServices'); // Import the Swagger documentation for this endpoint
+
 
 // Configure multer to store files with their original names
 const storage = multer.diskStorage({
@@ -21,6 +20,9 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage }); // Use the custom storage configuration
+
+// Import Swagger documentation
+require('../swaggerDocs/invokeServices'); // Import the Swagger documentation for this endpoint
 
 // Route to invoke the microservices
 router.post('/invoke-services', upload.single('file'), async (req, res) => {

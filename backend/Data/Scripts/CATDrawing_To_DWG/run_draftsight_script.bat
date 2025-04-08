@@ -25,14 +25,21 @@ set OUTPUT_DWG=%2
 start /min "" "C:\Program Files\AutoHotkey\v2\AutoHotkey.exe" "%~dp0focus_draftsight.ahk"
 
 :: Wait for AutoHotkey to bring DraftSight into focus
-timeout /t 2 >nul
+::timeout /t 2 >nul
 
 :: Run the VBScript to execute commands in DraftSight with the input PDF and output DWG paths
 cscript //nologo "%~dp0import_catdrawing.vbs" "%INPUT_CATDRW%" "%OUTPUT_DWG%"
 
-:: Run the VBScript to execute commands in DraftSight
-:: cscript //nologo "D:\Data\Scripts\PDF_To_DWG\import_pdf.vbs"
+if %ERRORLEVEL% NEQ 0 (
+    echo Error: Failed to run the VBScript for CATDrawing import.
+    exit /b %ERRORLEVEL%
+)
 
-:: echo DraftSight automation executed successfully!
-::exit /b
-pasue
+:: Wait for a brief moment to ensure the process completes
+::timeout /t 5 >nul 
+
+echo DraftSight automation executed successfully!
+
+:: Exit the batch file
+exit /b 0
+

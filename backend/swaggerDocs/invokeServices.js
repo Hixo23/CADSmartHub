@@ -2,28 +2,53 @@
  * @swagger
  * /invoke-services:
  *   post:
- *     summary: Invoke microservices
- *     description: Upload a file and invoke the appropriate microservice based on the type.
- *     tags: [Microservices]
+ *     summary: Invoke CAD Smart Hub microservices
+ *     description: |
+ *       Dynamically route CAD-related requests to internal services based on `type` and `apiName`.
+ *       Supported types: DataConversion, 2DCAD, Automation.
+ *       
+ *       - **DataConversion**: Converts PDF, SVG, DGN, STEP, CATDrawing to DWG
+ *       - **2DCAD**: Smart dimensioning, fastener creation, cleaning layers, etc.
+ *       - **Automation**: BOM extraction, G-code generation, batch print/export, draw compare.
+ *       
+ *       The output will be sent via email.
+ *     tags:
+ *       - DataConversion
+ *       - 2DCAD
+ *       - Automation
  *     requestBody:
  *       required: true
  *       content:
  *         multipart/form-data:
  *           schema:
  *             type: object
+ *             required:
+ *               - type
+ *               - apiName
+ *               - file
+ *               - email
  *             properties:
+ *               type:
+ *                 type: string
+ *                 enum: [DataConversion, 2DCAD, Automation]
+ *                 example: DataConversion
+ *               apiName:
+ *                 type: string
+ *                 description: API to invoke based on selected type
+ *                 example: pdfToDWG
  *               file:
  *                 type: string
  *                 format: binary
- *               type:
+ *                 description: Upload DWG, PDF, SVG, ZIP etc. depending on API
+ *               email:
  *                 type: string
- *               apiName:
- *                 type: string
+ *                 format: email
+ *                 example: user@example.com
  *     responses:
  *       200:
- *         description: Successful response
+ *         description: File received. Output will be sent via email.
  *       400:
- *         description: Bad request
+ *         description: Missing file or email.
  *       500:
- *         description: Internal server error
+ *         description: Server error during processing.
  */

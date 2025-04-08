@@ -34,23 +34,26 @@ End If
 ' Activate DraftSight window
 WshShell.AppActivate DraftSightPID
 WScript.Sleep 500
-' BringDraftSightToFront()
+BringDraftSightToFront()
 WScript.Sleep 2000
 
-' Send IMPORTPDF command
+' Send IMPORTCATDRAWING command
 WshShell.SendKeys "{ESC}"
 WScript.Sleep 1000
-WshShell.SendKeys "{ESC}"
-WScript.Sleep 500
-
+'WshShell.SendKeys "{ESC}"
+'WScript.Sleep 500
 WshShell.AppActivate DraftSightPID
-
-'WshShell.SendKeys "NEW"
-'WshShell.SendKeys "{ENTER}"
+WshShell.SendKeys "NEW"
+WScript.Sleep 500
+WshShell.SendKeys "{ENTER}"
+WScript.Sleep 1000
+WshShell.SendKeys "."
+WshShell.SendKeys "{ENTER}"
 WScript.Sleep 1000
 WshShell.SendKeys "IMPORTCATDRAWING"
+WScript.Sleep 500
 WshShell.SendKeys "{ENTER}"
-WScript.Sleep 2000
+WScript.Sleep 1000
 
 'BringDraftSightToFront()
 ' Specify destination
@@ -80,12 +83,6 @@ WScript.Sleep 500
 WshShell.SendKeys "{ENTER}"
 WScript.Sleep 500
 WshShell.SendKeys "{ESC}"
-WScript.Sleep 500
-WshShell.SendKeys "{ESC}"
-WScript.Sleep 500
-WshShell.SendKeys "SAVE"
-WScript.Sleep 500
-WshShell.SendKeys "{ENTER}"
 WScript.Sleep 2000
 WshShell.SendKeys "CLOSE"
 WScript.Sleep 500
@@ -93,7 +90,6 @@ WshShell.SendKeys "{ENTER}"
 WScript.Sleep 500
 WshShell.SendKeys "{ESC}"
 WScript.Sleep 500
-
 ' Wait for save to complete
 WScript.Sleep 2000
 

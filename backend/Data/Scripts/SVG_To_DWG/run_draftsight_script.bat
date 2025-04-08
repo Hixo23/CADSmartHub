@@ -30,9 +30,16 @@ start /min "" "C:\Program Files\AutoHotkey\v2\AutoHotkey.exe" "%~dp0focus_drafts
 :: Run the VBScript to execute commands in DraftSight with the input PDF and output DWG paths
 cscript //nologo "%~dp0import_svg.vbs" "%INPUT_SVG%" "%OUTPUT_DWG%"
 
-:: Run the VBScript to execute commands in DraftSight
-:: cscript //nologo "D:\Data\Scripts\PDF_To_DWG\import_pdf.vbs"
+if %ERRORLEVEL% NEQ 0 (
+    echo Error: Failed to run the VBScript for SVG import.
+    exit /b %ERRORLEVEL%
+)
 
-:: echo DraftSight automation executed successfully!
+:: Wait for a brief moment to ensure the process completes
+::timeout /t 5 >nul 
+
+echo DraftSight automation executed successfully!
+
+:: Exit the batch file
 exit /b 0
 

@@ -51,6 +51,7 @@ const MiddlewareAPIServices = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
     
+        console.log('Handle Submit Called');
         const formData = new FormData();
         formData.append('type', selectedServiceType);
         formData.append('apiName', selectedService);
@@ -147,7 +148,6 @@ const MiddlewareAPIServices = () => {
                                 <option value="ANSI Metric">ANSI Metric</option>
                                 <option value="BSI">BSI</option>
                                 <option value="DIN">DIN</option>
-                                <option value="SIO">SIO</option>
                                 <option value="JIS">JIS</option>
                             </select>
                         </div>
@@ -167,8 +167,7 @@ const MiddlewareAPIServices = () => {
                             <label>Size:</label>
                             <select name="size" onChange={handleFastenerChange} required>
                                 <option value="">--Select--</option>
-                                <option value="80">80</option>
-                                <option value="56">56</option>
+                                <option value="80">80</option>                                
                                 <option value="40">40</option>
                             </select>
                         </div>
@@ -182,10 +181,8 @@ const MiddlewareAPIServices = () => {
                         </div>
                         <div className="form-group">
                             <label>Fastener Length:</label>
-                            <select name="fastenerLength" onChange={handleFastenerChange} required>
-                                <option value="0.125">0.125</option>
-                                <option value="0.25">0.25</option>
-                                <option value="0.375">0.375</option>
+                            <select name="fastenerLength" onChange={handleFastenerChange} required>                                
+                                <option value="0.25">0.25</option>                               
                                 <option value="0.5">0.5</option>
                                 <option value="0.625">0.625</option>
                             </select>
@@ -199,7 +196,7 @@ const MiddlewareAPIServices = () => {
                                 onChange={handleFastenerChange}
                                 required
                             />
-                        </div>                       
+                        </div>                                               
                     </div>
                 )}
 
